@@ -15,7 +15,12 @@
         <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/font/font.xml" value="0.4107692307692308" />
         <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/layout/activity_main.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/layout/fragment_add_contact.xml" value="0.33" />
+        <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/layout/fragment_call.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/layout/fragment_contact_list_tab.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/layout/fragment_contactlist.xml" value="0.33" />
+        <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/layout/fragment_favourite_list_tab.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/layout/fragment_recent_call.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/layout/item_model.xml" value="0.38697916666666665" />
       </map>
     </option>
   </component>

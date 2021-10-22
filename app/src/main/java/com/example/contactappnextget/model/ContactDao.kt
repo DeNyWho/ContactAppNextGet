@@ -11,6 +11,9 @@ interface ContactDao{
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(contact: Contact)
 
+    @Query("SELECT * FROM contact_info")
+    fun getContact(): List<Contact>
+
     @Update
     suspend fun updateContact(contact: Contact)
 

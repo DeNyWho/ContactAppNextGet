@@ -1,60 +1,71 @@
 package com.example.contactappnextget.fragments
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.fragment.app.Fragment
 import com.example.contactappnextget.R
+import com.example.contactappnextget.adapter.AddPagerAdapter
+import com.example.contactappnextget.model.Contact
+import kotlinx.android.synthetic.main.fragment_add_contact.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class AddContact : Fragment(R.layout.fragment_add_contact) {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AddContact.newInstance] factory method to
- * create an instance of this fragment.
- */
-class AddContact : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
+    lateinit var adapters: AddPagerAdapter
+    lateinit var list:MutableList<Int>
+
+    private fun images(){
+        list = mutableListOf()
+        list.add(R.drawable.man_1)
+        list.add(R.drawable.plusimage)
+    }
+
+    interface Callbacks {
+        fun onAddContact()
+    }
+
+    private var callbacks: Callbacks? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callbacks = context as Callbacks
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_contact, container, false)
+        val view = inflater.inflate(R.layout.fragment_add_contact, container, false)
+
+        images()
+
+        adapters = AddPagerAdapter(this)
+        adapters.setContentList(list)
+
+        relativeLayout2.adapter = adapters
+
+        val name = view.findViewById<EditText>(R.id.textField)
+        val surname = view.findViewById<EditText>(R.id.textField2)
+        val mobile = view.findViewById<EditText>(R.id.textField3)
+        val address = view.findViewById<EditText>(R.id.textField4)
+        save.setOnClickListener { Contact(name = name.text.toString(), surname = surname.text.toString(), number = mobile.text.toString(), address = address.text.toString() )}
+
+        return view
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callbacks = null
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AddContact.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AddContact().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        fun newInstance(): AddContact = AddContact()
     }
 }
