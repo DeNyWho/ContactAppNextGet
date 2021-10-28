@@ -4,94 +4,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.Contactlist"
-    android:background="#1a1a1a">
+    android:background="#161E27"
+    tools:context=".fragments.ContactList">
 
-    <TextView
-        android:id="@+id/textView"
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/font"
-        android:text="Contacts"
-        android:textColor="@color/white"
-        android:textSize="27sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="50dp"
+        app:tabSelectedTextColor="#3281EA"
+        app:tabTextColor="@color/white"
+        android:layout_gravity="center_horizontal"
+        app:indicatorEndColor="#e73820"
+        app:indicatorMarginBottom="3dp"
+        app:indicatorStartColor="#2985EF"
+        app:layout_constraintBottom_toTopOf="@+id/viewPager"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.008"
-        app:layout_goneMarginStart="30dp" />
+        app:layout_constraintVertical_bias="0.0"
+        app:tabIndicatorHeight="3dp"
+        app:tabMode="scrollable" />
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
-        <ImageButton
-            android:id="@+id/addContact"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/shape" />
-
-        <ImageView
-            android:layout_width="38dp"
-            android:layout_height="37dp"
-            android:src="@drawable/baseline_add_black_48" />
-    </FrameLayout>
-
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchView"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/create_button"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:background="@drawable/searchviewcustom"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/button"
+        app:backgroundTint="@null"
+        android:text="NEW CONTACT"
+        android:textSize="19sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/font"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.127" />
+        app:layout_constraintEnd_toStartOf="@+id/tabLayout"
+        app:layout_constraintHorizontal_bias="0.549"
+        app:layout_constraintStart_toStartOf="@+id/tabLayout"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+        app:layout_constraintVertical_bias="0.0" />
 
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="11dp"
+        android:layout_marginTop="10dp"
+        android:background="#B5BAC4"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintEnd_toStartOf="@+id/create_button"
+        app:layout_constraintHorizontal_bias="0.048"
+        app:layout_constraintStart_toStartOf="@+id/create_button"
+        app:layout_constraintTop_toBottomOf="@+id/create_button"
+        app:layout_constraintVertical_bias="0.0" />
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/pager"
-            android:layout_width="420dp"
-            android:layout_height="515dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/viewpager"
-            android:paddingStart="30dp"
-            android:paddingTop="30dp"
-            android:paddingEnd="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.555"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
-
-    </RelativeLayout>
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="0dp"
+        android:background="#161E27"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/line"
+        app:layout_constraintStart_toStartOf="@+id/line"
+        app:layout_constraintTop_toBottomOf="@+id/line" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

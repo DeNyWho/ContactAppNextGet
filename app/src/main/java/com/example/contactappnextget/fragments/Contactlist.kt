@@ -12,12 +12,12 @@ import com.example.contactappnextget.adapter.FragmentSlidePagerAdapter
 import kotlinx.android.synthetic.main.fragment_contactlist.*
 
 
-class Contactlist : Fragment() {
+class ContactList : Fragment() {
 
     private lateinit var viewPager: ViewPager2
 
     interface Callbacks {
-        fun onContactlist()
+        fun onContactList()
     }
 
     private var callbacks: Callbacks? = null
@@ -32,19 +32,16 @@ class Contactlist : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_contactlist, container, false)
-        viewPager = view.findViewById(R.id.pager)
-
-
-        val pagerAdapter = FragmentSlidePagerAdapter(this)
-        viewPager.adapter = pagerAdapter
-        // Inflate the layout for this fragment
+//        tabLayout.setItems(tabItems) { item, holder ->
+//            holder.tabNameView.text = "${item.id} ${item.title}"
+//        }
         return view
     }
 
     override fun onStart() {
         super.onStart()
-        addContact.setOnClickListener {
-            callbacks?.onContactlist()
+        create_button.setOnClickListener {
+            callbacks?.onContactList()
         }
     }
 
@@ -54,6 +51,6 @@ class Contactlist : Fragment() {
     }
 
     companion object {
-        fun newInstance(): Contactlist = Contactlist()
+        fun newInstance(): ContactList = ContactList()
     }
 }

@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.example.contactappnextget.R
 import com.example.contactappnextget.adapter.AddPagerAdapter
+import com.example.contactappnextget.adapter.FragmentSlidePagerAdapter
 import com.example.contactappnextget.model.Contact
 import kotlinx.android.synthetic.main.fragment_add_contact.*
 import kotlinx.coroutines.CoroutineScope
@@ -19,6 +21,7 @@ class AddContact : Fragment(R.layout.fragment_add_contact) {
 
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
     lateinit var adapters: AddPagerAdapter
+    private lateinit var viewPager: ViewPager2
     lateinit var list:MutableList<Int>
 
     private fun images(){
@@ -46,10 +49,10 @@ class AddContact : Fragment(R.layout.fragment_add_contact) {
 
         images()
 
-        adapters = AddPagerAdapter(this)
-        adapters.setContentList(list)
-
-        relativeLayout2.adapter = adapters
+        viewPager = view.findViewById(R.id.relativeLayout2)
+        val adapter = AddPagerAdapter(requireContext())
+        adapter.setContentList(list)
+        viewPager.adapter = adapter
 
         val name = view.findViewById<EditText>(R.id.textField)
         val surname = view.findViewById<EditText>(R.id.textField2)
