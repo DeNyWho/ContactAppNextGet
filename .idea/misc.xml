@@ -3,26 +3,29 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/drawable-mdpi/ic_baseline_keyboard_arrow_left.xml" value="0.403125" />
+        <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/drawable-mdpi/ic_baseline_keyboard_arrow_right.xml" value="0.403125" />
         <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/drawable/arrow_left.xml" value="0.14444444444444443" />
         <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/drawable/baseline_add_20.xml" value="0.403125" />
-        <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/drawable/button.xml" value="0.403125" />
         <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/drawable/contactlist.xml" value="0.403125" />
+        <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/drawable/edittext.xml" value="0.403125" />
         <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/drawable/favouritelist.xml" value="0.403125" />
         <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/drawable/ic_outline_arrow_right_alt_24.xml" value="0.403125" />
-        <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/drawable/line.xml" value="0.403125" />
         <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/drawable/searchviewcustom.xml" value="0.403125" />
         <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/drawable/shape.xml" value="0.403125" />
         <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/drawable/some_circle.xml" value="0.403125" />
         <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/drawable/viewpager.xml" value="0.403125" />
         <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/font/font.xml" value="0.4107692307692308" />
-        <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/layout/activity_main.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/layout/fragment_add_contact.xml" value="0.33" />
         <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/layout/fragment_call.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/layout/fragment_contact_list_tab.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/layout/fragment_contactlist.xml" value="0.33" />
+        <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/layout/fragment_edit_contact.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/layout/fragment_favourite_list_tab.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/layout/fragment_recent_call.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/layout/item_model.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/denis/AndroidStudioProjects/ContactAppNextGet/app/src/main/res/layout/list_item_contacts.xml" value="0.38697916666666665" />
       </map>
     </option>
   </component>

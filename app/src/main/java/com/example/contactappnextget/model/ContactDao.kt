@@ -5,14 +5,17 @@ import androidx.room.*
 
 @Dao
 interface ContactDao{
-    @Query("SELECT * FROM contact_info ORDER BY contact_name ASC")
-    fun getContacts(): LiveData<List<Contact>>
+    @Insert
+    fun insert(contact: Contact): Long
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(contact: Contact)
+    @Query("SELECT * FROM contact_info ORDER BY contact_name ASC")
+    fun getAllContacts(): LiveData<List<Contact>?>
 
     @Query("SELECT * FROM contact_info")
     fun getContact(): List<Contact>
+
+    @Query("SELECT * FROM contact_info WHERE contact_name LIKE '%' || :query || '%'")
+    fun findContactByName(query: String): LiveData<List<Contact>>
 
     @Update
     suspend fun updateContact(contact: Contact)

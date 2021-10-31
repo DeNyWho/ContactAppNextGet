@@ -12,15 +12,23 @@ import java.lang.IllegalStateException
 
 class ContactViewModel(private val repository: ContactRepository): ViewModel() {
 
-    val contact: LiveData<List<Contact>> = repository.contacts
+    val contacts: LiveData<List<Contact>?> = repository.contacts
 
-    fun insertContact(contact: Contact) = viewModelScope.launch(Dispatchers.IO){
-        repository.insertContact(contact = contact)
+    val getAllContacts = repository.getAllContacts()
+
+    fun saveContact(contact: Contact){
+        insertContact(contact)
+    }
+
+    private fun insertContact(contact: Contact){
+        viewModelScope.launch {
+            repository.insertContact(contact)
+        }
     }
 }
 
-class ContactViewModelFactory(val repository: ContactRepository) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+abstract class ContactViewModelFactory(val repository: ContactRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ContactViewModel::class.java)) {
             @Suppress("UNCHECK_CAST")
             return ContactViewModel(repository = repository) as T

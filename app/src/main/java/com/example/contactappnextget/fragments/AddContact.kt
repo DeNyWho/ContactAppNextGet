@@ -1,44 +1,42 @@
 package com.example.contactappnextget.fragments
 
-import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.viewpager2.widget.ViewPager2
+import androidx.lifecycle.ViewModelProviders
 import com.example.contactappnextget.R
-import com.example.contactappnextget.adapter.AddPagerAdapter
-import com.example.contactappnextget.adapter.FragmentSlidePagerAdapter
 import com.example.contactappnextget.model.Contact
+import com.example.contactappnextget.model.ContactDao
+import com.example.contactappnextget.room.ContactDataBase
+import com.example.contactappnextget.viewModel.ContactViewModel
+import com.example.contactappnextget.viewModel.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.fragment_add_contact.*
+import kotlinx.android.synthetic.main.fragment_add_contact.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import javax.inject.Inject
+import androidx.lifecycle.ViewModelProvider
+
+
+
 
 class AddContact : Fragment(R.layout.fragment_add_contact) {
 
+    private lateinit var database: ContactDataBase
+    private lateinit var contactDao: ContactDao
 
-    private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
-    lateinit var adapters: AddPagerAdapter
-    private lateinit var viewPager: ViewPager2
-    lateinit var list:MutableList<Int>
+    @Inject
+    lateinit var factory: ViewModelProviderFactory
 
-    private fun images(){
-        list = mutableListOf()
-        list.add(R.drawable.man_1)
-        list.add(R.drawable.plusimage)
-    }
+    private lateinit var viewModel: ContactViewModel
 
-    interface Callbacks {
-        fun onAddContact()
-    }
-
-    private var callbacks: Callbacks? = null
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        callbacks = context as Callbacks
+    override fun onStart() {
+        super.onStart()
+        (activity as AppCompatActivity).supportActionBar?.title = "Create contact"
     }
 
     override fun onCreateView(
@@ -46,29 +44,19 @@ class AddContact : Fragment(R.layout.fragment_add_contact) {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_add_contact, container, false)
+        val scope = CoroutineScope(Dispatchers.Main)
+        database = ContactDataBase.getDataBase(requireContext(), scope)
+        contactDao = database.ContactDao()
 
-        images()
+        viewModel = ViewModelProvider(this, factory)[ContactViewModel::class.java]
 
-        viewPager = view.findViewById(R.id.relativeLayout2)
-        val adapter = AddPagerAdapter(requireContext())
-        adapter.setContentList(list)
-        viewPager.adapter = adapter
-
-        val name = view.findViewById<EditText>(R.id.textField)
-        val surname = view.findViewById<EditText>(R.id.textField2)
-        val mobile = view.findViewById<EditText>(R.id.textField3)
-        val address = view.findViewById<EditText>(R.id.textField4)
-        save.setOnClickListener { Contact(name = name.text.toString(), surname = surname.text.toString(), number = mobile.text.toString(), address = address.text.toString() )}
-
+        view.create_contact.setOnClickListener {
+            val contact = Contact(name = textInputEditText.text.toString(), number = textInputEditText2.text.toString(), address = textInputEditText3.text.toString())
+            viewModel.saveContact(contact = contact)
+        }
         return view
     }
-
-    override fun onDetach() {
-        super.onDetach()
-        callbacks = null
-    }
-
-    companion object {
-        fun newInstance(): AddContact = AddContact()
+    fun something(item: Contact){
+        Log.i("Something", "username: ${item.name} number: ${item.number} address ${item.address}")
     }
 }

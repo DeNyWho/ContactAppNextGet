@@ -29,7 +29,6 @@ class ContactListTab : Fragment() {
 //        recyclerview.layoutManager = linearLayoutManager
 
         return inflater.inflate(R.layout.fragment_contact_list_tab, container, false)
-//        model.
     }
 
     companion object {

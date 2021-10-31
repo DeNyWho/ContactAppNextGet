@@ -5,11 +5,15 @@ import com.example.contactappnextget.model.Contact
 import com.example.contactappnextget.model.ContactDao
 
 class ContactRepository(private val contactDao: ContactDao) {
-    val contacts: LiveData<List<Contact>> = contactDao.getContacts()
+    val contacts: LiveData<List<Contact>?> = contactDao.getAllContacts()
 
-    suspend fun insertContact(contact: Contact){
+    fun insertContact(contact: Contact){
         contactDao.insert(contact = contact)
     }
+
+    fun getAllContacts() : LiveData<List<Contact>?> = contactDao.getAllContacts()
+
+    fun findContactByName(query: String): LiveData<List<Contact>> = contactDao.findContactByName(query)
 
     suspend fun updateContact(contact: Contact){
         contactDao.updateContact(contact = contact)
@@ -18,6 +22,8 @@ class ContactRepository(private val contactDao: ContactDao) {
     suspend fun deleteContact(contact: Contact){
         contactDao.delete(contact = contact)
     }
+
+//    suspend fun addsomething
 
 //    suspend fun deleteAll(){}
 }
