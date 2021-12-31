@@ -6,15 +6,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.contactappnextget.model.Contact
 import com.example.contactappnextget.viewModel.repository.ContactRepository
-import kotlinx.coroutines.Dispatchers
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.lang.IllegalStateException
+import javax.inject.Inject
 
-class ContactViewModel(private val repository: ContactRepository): ViewModel() {
+@HiltViewModel
+class ContactViewModel @Inject constructor(private val repository: ContactRepository): ViewModel() {
 
     val contacts: LiveData<List<Contact>?> = repository.contacts
 
     val getAllContacts = repository.getAllContacts()
+
+    fun findContactByName(query: String): LiveData<List<Contact>> {
+        return repository.findContactByName(query)
+    }
 
     fun saveContact(contact: Contact){
         insertContact(contact)

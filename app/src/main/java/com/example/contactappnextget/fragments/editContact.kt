@@ -2,40 +2,33 @@ package com.example.contactappnextget.fragments
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.example.contactappnextget.R
+import com.google.android.material.textfield.TextInputEditText
 
 
 class EditContact : Fragment() {
-
-    interface Callbacks{
-        fun onEditContact()
-    }
-
-    private var callbacks: Callbacks? = null
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        callbacks = context as Callbacks
-    }
+    private val args: EditContactArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_contact, container, false)
+        val view = inflater.inflate(R.layout.fragment_edit_contact, container, false)
+
+        val name = view.findViewById<TextInputEditText>(R.id.name)
+        val phone = view.findViewById<TextInputEditText>(R.id.phone)
+        val address = view.findViewById<TextInputEditText>(R.id.address)
+        name.setText(args.name)
+        phone.setText(args.phone)
+        address.setText(args.address)
+
+        return view
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        callbacks = null
-    }
-
-    companion object {
-        fun newInstance(): EditContact = EditContact()
-    }
 }

@@ -15,4 +15,18 @@ data class Contact(
     @ColumnInfo(name = "contact_number") val number: String,
     @ColumnInfo(name = "contact_address") val address: String,
 //    @ColumnInfo(name = "contact_image") val image: Int,
-) : Parcelable
+) : Parcelable {
+    @JvmName("getName1")
+    fun getName(): String {
+        return name
+    }
+
+    fun getMobile(): String{
+        return number
+    }
+
+    @JvmName("getAddress1")
+    fun getAddress(): String{
+        return address
+    }
+}

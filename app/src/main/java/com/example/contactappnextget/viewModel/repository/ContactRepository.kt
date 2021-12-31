@@ -3,8 +3,9 @@ package com.example.contactappnextget.viewModel.repository
 import androidx.lifecycle.LiveData
 import com.example.contactappnextget.model.Contact
 import com.example.contactappnextget.model.ContactDao
+import javax.inject.Inject
 
-class ContactRepository(private val contactDao: ContactDao) {
+class ContactRepository @Inject constructor(private val contactDao: ContactDao) {
     val contacts: LiveData<List<Contact>?> = contactDao.getAllContacts()
 
     fun insertContact(contact: Contact){
@@ -22,6 +23,12 @@ class ContactRepository(private val contactDao: ContactDao) {
     suspend fun deleteContact(contact: Contact){
         contactDao.delete(contact = contact)
     }
+
+    fun findContact(contactId: Long) {
+        contactDao.findContactById(contactId)
+    }
+
+
 
 //    suspend fun addsomething
 

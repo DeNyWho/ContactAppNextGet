@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#161E27"
-    tools:context=".fragments.editContact">
+    tools:context=".fragments.EditContact">
 
 
     <com.makeramen.roundedimageview.RoundedImageView
@@ -30,13 +30,15 @@
         app:layout_constraintVertical_bias="0.109" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/textInputEditText"
+        android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
         android:background="@drawable/edittext"
+        android:textColor="@color/white"
+        android:alpha="0.7"
         android:hint="Name"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
@@ -49,13 +51,15 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/textInputEditText2"
+        android:id="@+id/phone"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
         android:background="@drawable/edittext"
+        android:textColor="@color/white"
+        android:alpha="0.7"
         android:hint="Phone"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
@@ -64,17 +68,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputEditText"
+        app:layout_constraintTop_toBottomOf="@+id/name"
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/textInputEditText3"
+        android:id="@+id/address"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
         android:background="@drawable/edittext"
+        android:textColor="@color/white"
+        android:alpha="0.7"
         android:hint="Address"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
@@ -83,28 +89,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputEditText2"
+        app:layout_constraintTop_toBottomOf="@+id/phone"
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.button.MaterialButton
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="261dp"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/button"
-        android:text="EDIT"
-        android:fontFamily="@font/font"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:backgroundTint="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputEditText3"
-        app:layout_constraintVertical_bias="1.0" />
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/button"
+            android:text="EDIT"
+            android:fontFamily="@font/font"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:backgroundTint="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/address"
+            app:layout_constraintVertical_bias="1.0"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

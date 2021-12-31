@@ -12,9 +12,12 @@ interface ContactDao{
     fun getAllContacts(): LiveData<List<Contact>?>
 
     @Query("SELECT * FROM contact_info")
-    fun getContact(): List<Contact>
+    fun getContacts(): List<Contact>
 
-    @Query("SELECT * FROM contact_info WHERE contact_name LIKE '%' || :query || '%'")
+    @Query("SELECT * FROM contact_info WHERE contact_id = :contactId ")
+    fun findContactById(contactId: Long): Contact?
+
+    @Query("SELECT * from contact_info WHERE contact_name LIKE '%' || :query || '%'")
     fun findContactByName(query: String): LiveData<List<Contact>>
 
     @Update
