@@ -33,7 +33,7 @@ class ContactAdapter : RecyclerView.Adapter<ContactAdapter.ContactHolder>() {
             transformations(CircleCropTransformation())
         }
         holder.itemView.setOnClickListener {
-            val action = ContactListDirections.actionContactListToDetailing(currentContact.getName(), currentContact.getAddress(), currentContact.getMobile())
+            val action = ContactListDirections.actionContactListToDetailing(currentContact.getName(), currentContact.getAddress(), currentContact.getMobile(), currentContact.getImage())
             holder.itemView.findNavController().navigate(action)
         }
     }

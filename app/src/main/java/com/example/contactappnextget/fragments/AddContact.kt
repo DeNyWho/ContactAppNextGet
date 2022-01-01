@@ -5,8 +5,6 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -43,7 +41,7 @@ class AddContact : Fragment(R.layout.fragment_add_contact) {
     private lateinit var roundedImageView: RoundedImageView
     private lateinit var image: ImageView
 
-    private lateinit var tempBitmap: Bitmap
+    lateinit var tempBitmap: Bitmap
 
     private lateinit var name: String
     private lateinit var number: String
@@ -85,7 +83,7 @@ class AddContact : Fragment(R.layout.fragment_add_contact) {
             number = textInputEditText2.text.toString().trim()
             address = textInputEditText3.text.toString().trim()
 
-            val uri: Uri = saveImage(image.drawable)
+            val uri: Uri = saveImage()
             val uriPath = uri.path.toString()
             Log.e("URIPATH",uriPath)
 
@@ -103,9 +101,8 @@ class AddContact : Fragment(R.layout.fragment_add_contact) {
         return view
     }
 
-    private fun saveImage(drawable: Drawable): Uri {
+    private fun saveImage(): Uri {
 //        val icon: Bitmap = BitmapFactory.decodeResource(context!!.resources, drawable)
-        val bitmap = tempBitmap
 
         val wrapper = ContextWrapper(requireContext())
 
@@ -116,7 +113,7 @@ class AddContact : Fragment(R.layout.fragment_add_contact) {
         try{
             val stream: OutputStream = FileOutputStream(file)
 //            compress bitmap
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+            tempBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
 
             stream.flush()
             stream.close()
@@ -150,11 +147,10 @@ class AddContact : Fragment(R.layout.fragment_add_contact) {
 
                 CAMERA_REQUEST_CODE -> {
 
-                    val bitmap = data?.extras?.get("data") as Bitmap
-                    tempBitmap = bitmap
+                    tempBitmap = data?.extras?.get("data") as Bitmap
 
                     //we are using coroutine image loader (coil)
-                    image.load(bitmap) {
+                    image.load(tempBitmap) {
                         crossfade(true)
                         crossfade(1000)
                         transformations(CircleCropTransformation())

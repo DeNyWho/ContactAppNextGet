@@ -8,8 +8,8 @@
                                                    tools:context=".fragments.Detailing">
 
 
-    <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/roundedImageView"
+    <ImageView
+            android:id="@+id/image"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginTop="16dp"
@@ -34,7 +34,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/roundedImageView"
+            app:layout_constraintTop_toBottomOf="@+id/image"
             app:layout_constraintVertical_bias="0.0"/>
 
 

@@ -1,6 +1,5 @@
 package com.example.contactappnextget.model
 
-import android.net.Uri
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
