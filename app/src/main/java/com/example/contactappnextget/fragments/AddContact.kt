@@ -96,7 +96,7 @@ class AddContact : Fragment(R.layout.fragment_add_contact) {
                 else -> {
                     // save data
                     val contact = Contact(name = name, number = number, address = address, image = uriPath)
-                    viewModel.saveContact(contact)
+                    viewModel.insertContact(contact)
                 }
             }
             findNavController().navigate(R.id.navigate_to_contactList)

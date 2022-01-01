@@ -43,6 +43,9 @@ android {
 
 dependencies {
 
+    //Cascade menu lib
+    implementation "me.saket.cascade:cascade:1.3.0"
+
     //user permission
     implementation 'com.karumi:dexter:6.2.2'
 

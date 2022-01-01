@@ -7,6 +7,15 @@
                                                    android:background="#161E27"
                                                    tools:context=".fragments.Detailing">
 
+    <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="16sp"
+            android:id="@+id/menuBtn"
+            android:background="@drawable/ic_more_vert_24"
+            android:backgroundTint="@color/white"
+            android:alpha="0.9" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/rate" app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
             android:id="@+id/image"
@@ -24,7 +33,9 @@
             android:layout_height="35dp"
             android:background="@drawable/ic_outline_star_outline_24" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/image" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHorizontal_bias="0.831"/>
+            app:layout_constraintHorizontal_bias="0.189"/>
+
+
     <TextView
             android:fontFamily="@font/font"
             android:id="@+id/name"

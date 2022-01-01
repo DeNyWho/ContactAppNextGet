@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contactappnextget.R
-import com.example.contactappnextget.adapter.ContactAdapter
 import com.example.contactappnextget.adapter.FavouriteListAdapter
 import com.example.contactappnextget.viewModel.ContactViewModel
 import dagger.hilt.android.AndroidEntryPoint

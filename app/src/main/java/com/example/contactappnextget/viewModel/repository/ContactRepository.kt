@@ -6,7 +6,6 @@ import com.example.contactappnextget.model.ContactDao
 import javax.inject.Inject
 
 class ContactRepository @Inject constructor(private val contactDao: ContactDao) {
-    val contacts: LiveData<List<Contact>?> = contactDao.getAllContacts()
 
     fun insertContact(contact: Contact){
         contactDao.insert(contact = contact)
@@ -14,22 +13,17 @@ class ContactRepository @Inject constructor(private val contactDao: ContactDao) 
 
     fun getAllContacts() : LiveData<List<Contact>?> = contactDao.getAllContacts()
 
-    fun findContactByName(query: String): LiveData<List<Contact>> = contactDao.findContactByName(query)
+//    fun findContactByName(query: String): LiveData<List<Contact>> = contactDao.findContactByName(query)
 
-    suspend fun deleteContact(contact: Contact){
+    fun deleteContact(contact: Contact){
         contactDao.delete(contact = contact)
     }
-
-    fun findContact(contactId: Long) {
-        contactDao.findContactById(contactId)
-    }
+//
+//    fun findContact(contactId: Long) {
+//        contactDao.findContactById(contactId)
+//    }
 
     fun updateContact(contact: Contact) {
         contactDao.updateContact(contact)
     }
-
-
-//    suspend fun addsomething
-
-//    suspend fun deleteAll(){}
 }
