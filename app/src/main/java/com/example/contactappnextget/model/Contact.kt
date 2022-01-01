@@ -1,5 +1,6 @@
 package com.example.contactappnextget.model
 
+import android.net.Uri
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -14,7 +15,7 @@ data class Contact(
     @ColumnInfo(name = "contact_name") val name: String,
     @ColumnInfo(name = "contact_number") val number: String,
     @ColumnInfo(name = "contact_address") val address: String,
-//    @ColumnInfo(name = "contact_image") val image: Int,
+    @ColumnInfo(name = "contact_image") val image: String,
 ) : Parcelable {
     @JvmName("getName1")
     fun getName(): String {
@@ -28,5 +29,10 @@ data class Contact(
     @JvmName("getAddress1")
     fun getAddress(): String{
         return address
+    }
+
+    @JvmName("getImage1")
+    fun getImage(): String {
+        return image
     }
 }

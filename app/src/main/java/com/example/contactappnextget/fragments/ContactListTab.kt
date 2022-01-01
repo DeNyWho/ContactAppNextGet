@@ -12,7 +12,6 @@ import com.example.contactappnextget.R
 import com.example.contactappnextget.adapter.ContactAdapter
 import com.example.contactappnextget.viewModel.ContactViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_contact_list_tab.*
 
 @AndroidEntryPoint
 class ContactListTab : Fragment() {

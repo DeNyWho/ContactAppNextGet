@@ -1,18 +1,18 @@
 package com.example.contactappnextget.adapter
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.os.bundleOf
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.example.contactappnextget.R
-import com.example.contactappnextget.fragments.ContactList
 import com.example.contactappnextget.fragments.ContactListDirections
 import com.example.contactappnextget.model.Contact
+import java.io.File
 
 
 class ContactAdapter : RecyclerView.Adapter<ContactAdapter.ContactHolder>() {
@@ -27,6 +27,11 @@ class ContactAdapter : RecyclerView.Adapter<ContactAdapter.ContactHolder>() {
     override fun onBindViewHolder(holder: ContactHolder, position: Int) {
         val currentContact: Contact = contacts[position]
         holder.textViewName.text = currentContact.getName()
+        holder.imageViewName.load(File(currentContact.getImage())){
+            crossfade(true)
+            crossfade(1000)
+            transformations(CircleCropTransformation())
+        }
         holder.itemView.setOnClickListener {
             val action = ContactListDirections.actionContactListToDetailing(currentContact.getName(), currentContact.getAddress(), currentContact.getMobile())
             holder.itemView.findNavController().navigate(action)
@@ -44,5 +49,6 @@ class ContactAdapter : RecyclerView.Adapter<ContactAdapter.ContactHolder>() {
 
     inner class ContactHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textViewName: TextView = itemView.findViewById(R.id.tv_name)
+        val imageViewName: ImageView = itemView.findViewById(R.id.iv_profile)
     }
 }

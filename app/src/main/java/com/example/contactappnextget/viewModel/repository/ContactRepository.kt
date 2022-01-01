@@ -16,10 +16,6 @@ class ContactRepository @Inject constructor(private val contactDao: ContactDao) 
 
     fun findContactByName(query: String): LiveData<List<Contact>> = contactDao.findContactByName(query)
 
-    suspend fun updateContact(contact: Contact){
-        contactDao.updateContact(contact = contact)
-    }
-
     suspend fun deleteContact(contact: Contact){
         contactDao.delete(contact = contact)
     }

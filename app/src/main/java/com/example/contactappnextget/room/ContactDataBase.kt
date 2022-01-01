@@ -12,6 +12,7 @@ abstract class ContactDatabase : RoomDatabase() {
     abstract fun getAppDao(): ContactDao
 
     companion object {
+        @Volatile
         private var DB_INSTANCE: ContactDatabase? = null
 
         fun getAppDbInstance(context: Context): ContactDatabase {
