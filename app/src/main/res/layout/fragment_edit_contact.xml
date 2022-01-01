@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#161E27"
-    tools:context=".fragments.EditContact">
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent" xmlns:mask="http://schemas.android.com/apk/res-auto"
+                                                   android:background="#161E27"
+                                                   tools:context=".fragments.EditContact">
 
 
     <ImageView
@@ -61,7 +61,9 @@
         android:background="@drawable/edittext"
         android:textColor="@color/white"
         android:alpha="0.7"
-        android:hint="Phone"
+        android:inputType="number"
+        android:hint="1234567890"
+        mask:mask="+7(###)###-##-##"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         android:textColorHint="#60656B"

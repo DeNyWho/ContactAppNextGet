@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -15,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -50,6 +52,7 @@ class AddContact : Fragment(R.layout.fragment_add_contact) {
 
     override fun onStart() {
         super.onStart()
+        (activity as AppCompatActivity).supportActionBar?.show()
         (activity as AppCompatActivity).supportActionBar?.title = "Create contact"
     }
 
@@ -102,7 +105,6 @@ class AddContact : Fragment(R.layout.fragment_add_contact) {
     }
 
     private fun saveImage(): Uri {
-//        val icon: Bitmap = BitmapFactory.decodeResource(context!!.resources, drawable)
 
         val wrapper = ContextWrapper(requireContext())
 
@@ -146,8 +148,10 @@ class AddContact : Fragment(R.layout.fragment_add_contact) {
             when (requestCode) {
 
                 CAMERA_REQUEST_CODE -> {
-
+                    Log.e("DATA","${data?.data}")
                     tempBitmap = data?.extras?.get("data") as Bitmap
+
+                    Log.e("TempBitCam","$tempBitmap")
 
                     //we are using coroutine image loader (coil)
                     image.load(tempBitmap) {
@@ -159,11 +163,24 @@ class AddContact : Fragment(R.layout.fragment_add_contact) {
 
                 GALLERY_REQUEST_CODE -> {
 
+                    Log.e("DATA","${data?.data}")
+
                     image.load(data?.data) {
                         crossfade(true)
                         crossfade(1000)
                         transformations(CircleCropTransformation())
                     }
+
+                    tempBitmap = (image.drawable as BitmapDrawable).toBitmap()
+
+//                    tempBitmap = (image.drawable as BitmapDrawable).bitmap
+
+//                    val imageUri = data!!.data
+//                    val bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri)
+//
+//                    val bitmap = MediaStore.Images.Media.getBitmap(c.getContentResolver(), Uri.parse(data.dataString))
+//                    tempBitmap = (image.drawable as BitmapDrawable).bitmap
+                    Log.e("TempBitGall","$tempBitmap")
                 }
             }
         }

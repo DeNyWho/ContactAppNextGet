@@ -15,6 +15,7 @@ data class Contact(
     @ColumnInfo(name = "contact_number") val number: String,
     @ColumnInfo(name = "contact_address") val address: String,
     @ColumnInfo(name = "contact_image") val image: String,
+    @ColumnInfo(name = "contact_favourite") val favourite: Int = 0,
 ) : Parcelable {
     @JvmName("getName1")
     fun getName(): String {
@@ -33,5 +34,15 @@ data class Contact(
     @JvmName("getImage1")
     fun getImage(): String {
         return image
+    }
+
+    @JvmName("getFavourite1")
+    fun getFavourite(): Int{
+        return favourite
+    }
+
+    @JvmName("getId1")
+    fun getId(): Int{
+        return id
     }
 }

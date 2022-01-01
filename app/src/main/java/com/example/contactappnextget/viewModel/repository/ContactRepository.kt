@@ -24,6 +24,9 @@ class ContactRepository @Inject constructor(private val contactDao: ContactDao) 
         contactDao.findContactById(contactId)
     }
 
+    fun updateContact(contact: Contact) {
+        contactDao.updateContact(contact)
+    }
 
 
 //    suspend fun addsomething

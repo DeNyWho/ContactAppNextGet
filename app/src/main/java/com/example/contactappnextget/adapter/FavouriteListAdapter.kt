@@ -14,8 +14,7 @@ import com.example.contactappnextget.fragments.ContactListDirections
 import com.example.contactappnextget.model.Contact
 import java.io.File
 
-
-class ContactAdapter : RecyclerView.Adapter<ContactAdapter.ContactHolder>() {
+class FavouriteListAdapter : RecyclerView.Adapter<FavouriteListAdapter.ContactHolder>() {
     private var contacts: List<Contact> = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactHolder {
         val itemView: View = LayoutInflater.from(parent.context)

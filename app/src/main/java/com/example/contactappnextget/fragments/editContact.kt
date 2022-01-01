@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -15,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -101,7 +103,7 @@ class EditContact : Fragment(R.layout.fragment_edit_contact) {
 
                 when (which) {
                     0 -> {
-                        action = EditContactDirections.actionEditContactToDetailing(args.name, args.phone, args.address, args.image)
+                        action = EditContactDirections.actionEditContactToDetailing(args.name, args.phone, args.address, args.image, args.id, args.favourite)
                         findNavController().navigate(action)
                     }
                     1 -> {
@@ -114,8 +116,16 @@ class EditContact : Fragment(R.layout.fragment_edit_contact) {
                             phone.text!!.isEmpty() -> textInputEditText2.error = "Please enter the number"
                             else -> {
                                 // save data
-                                val contact = Contact(name = name.text.toString(), number = phone.text.toString(), address = address.text.toString(), image = uriPath)
-                                viewModel.saveContact(contact)
+                                val contact = Contact(
+                                    name = name.text.toString(),
+                                    number = phone.text.toString(),
+                                    address = address.text.toString(),
+                                    image = uriPath,
+                                    id = args.id
+                                )
+                                viewModel.updateContact(contact)
+                                action = EditContactDirections.actionEditContactToDetailing(name.text.toString(), phone.text.toString(), address.text.toString(), uriPath, args.id, args.favourite)
+                                findNavController().navigate(action)
                             }
                         }
                     }
@@ -150,7 +160,7 @@ class EditContact : Fragment(R.layout.fragment_edit_contact) {
 
         val wrapper = ContextWrapper(requireContext())
 
-        var file = wrapper.getDir("images", Context.MODE_PRIVATE)
+        var file = wrapper.getDir("images",Context.MODE_PRIVATE)
 //        create file to save the image
         file = File(file, "${UUID.randomUUID()}.jpg")
 
@@ -190,8 +200,10 @@ class EditContact : Fragment(R.layout.fragment_edit_contact) {
             when (requestCode) {
 
                 CAMERA_REQUEST_CODE -> {
-
+                    Log.e("DATA","${data?.data}")
                     tempBitmap = data?.extras?.get("data") as Bitmap
+
+                    Log.e("TempBitCam","$tempBitmap")
 
                     //we are using coroutine image loader (coil)
                     image.load(tempBitmap) {
@@ -203,11 +215,24 @@ class EditContact : Fragment(R.layout.fragment_edit_contact) {
 
                 GALLERY_REQUEST_CODE -> {
 
+                    Log.e("DATA","${data?.data}")
+
                     image.load(data?.data) {
                         crossfade(true)
                         crossfade(1000)
                         transformations(CircleCropTransformation())
                     }
+
+                    tempBitmap = (image.drawable as BitmapDrawable).toBitmap()
+
+//                    tempBitmap = (image.drawable as BitmapDrawable).bitmap
+
+//                    val imageUri = data!!.data
+//                    val bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri)
+//
+//                    val bitmap = MediaStore.Images.Media.getBitmap(c.getContentResolver(), Uri.parse(data.dataString))
+//                    tempBitmap = (image.drawable as BitmapDrawable).bitmap
+                    Log.e("TempBitGall","$tempBitmap")
                 }
             }
         }

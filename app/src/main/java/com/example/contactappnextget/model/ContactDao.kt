@@ -21,7 +21,7 @@ interface ContactDao{
     fun findContactByName(query: String): LiveData<List<Contact>>
 
     @Update
-    suspend fun updateContact(contact: Contact)
+    fun updateContact(contact: Contact)
 
     @Delete
     suspend fun delete(contact: Contact)

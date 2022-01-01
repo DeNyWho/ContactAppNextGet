@@ -30,6 +30,12 @@ class ContactViewModel @Inject constructor(private val repository: ContactReposi
             repository.insertContact(contact)
         }
     }
+
+    fun updateContact(contact: Contact){
+        viewModelScope.launch {
+            repository.updateContact(contact)
+        }
+    }
 }
 
 abstract class ContactViewModelFactory(val repository: ContactRepository) : ViewModelProvider.Factory {

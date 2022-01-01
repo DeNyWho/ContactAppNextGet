@@ -25,6 +25,7 @@ class ContactList : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        (activity as AppCompatActivity).supportActionBar?.show()
         (activity as AppCompatActivity).supportActionBar?.title = "Contacts"
     }
     override fun onCreateView(
@@ -38,9 +39,8 @@ class ContactList : Fragment() {
 
        viewModel = ViewModelProvider(this)[ContactViewModel::class.java]
 
-//      click on contact
-
 //      TabLayout + viewPager
+
         val tabLayout=view.findViewById<TabLayout>(R.id.tabLayout)
         val viewPager=view.findViewById<ViewPager2>(R.id.viewPager)
 
