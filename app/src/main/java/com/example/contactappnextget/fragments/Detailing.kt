@@ -3,7 +3,6 @@ package com.example.contactappnextget.fragments
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -18,8 +17,6 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.MenuCompat
 import androidx.fragment.app.Fragment
@@ -130,10 +127,16 @@ class Detailing : Fragment() {
                 .ask()
             }
 
-
-
-
-        sms.setOnClickListener {}
+        sms.setOnClickListener {
+            val _phone = phone.text.toString()
+            val c = "()-"
+            val p = _phone.replace(Regex("[$c]"), "")
+            val number = "$p"
+            val sendIntent = Intent(Intent.ACTION_VIEW)
+            sendIntent.data = Uri.parse("sms:")
+            sendIntent.putExtra("address",number)
+            startActivity(sendIntent)
+        }
 
         name.text = args.name
         phone.text = args.phone
@@ -163,6 +166,14 @@ class Detailing : Fragment() {
             MenuCompat.setGroupDividerEnabled(this, true)
             add("Share").also {
                 it.setIcon(R.drawable.ic_outline_share_24)
+                it.setOnMenuItemClickListener {
+                    val intent= Intent()
+                    intent.action=Intent.ACTION_SEND
+                    intent.putExtra(Intent.EXTRA_TEXT,"Name: ${args.name} Number: ${args.phone}")
+                    intent.type="text/plain"
+                    startActivity(Intent.createChooser(intent,"Share To:"))
+                    true
+                }
             }
             addSubMenu("Remove").also {
                 it.setIcon(R.drawable.ic_outline_delete_sweep_24)
