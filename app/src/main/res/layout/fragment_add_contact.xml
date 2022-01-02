@@ -63,7 +63,6 @@
         android:textColor="@color/white"
         android:alpha="0.7"
         android:inputType="number"
-        android:hint="1234567890"
         mask:mask="+7(###)###-##-##"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"

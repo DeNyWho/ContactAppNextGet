@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -79,6 +80,7 @@ class AddContact : Fragment(R.layout.fragment_add_contact) {
         view.create_contact.setOnClickListener {
             name = textInputEditText.text.toString().trim()
             number = textInputEditText2.text.toString().trim()
+            Log.e("size","${number.length}")
             address = textInputEditText3.text.toString().trim()
             if (temp != 1) {
                 tempBitmap = (image.drawable as BitmapDrawable).bitmap
@@ -86,16 +88,17 @@ class AddContact : Fragment(R.layout.fragment_add_contact) {
             val uri: Uri = saveImage()
             val uriPath = uri.path.toString()
 
-            when {
-                name.isEmpty() -> textInputEditText.error = "Please enter the name"
-                number.isEmpty() -> textInputEditText2.error = "Please enter the number"
-                else -> {
+            when (number.length) {
+                3 -> textInputEditText2.error = "Please enter the number"
+                4,5,6,7,8,9,10,11,12,13,14,15 -> textInputEditText2.error = "Please enter the correct number"
+                16 -> {
+                    if(name.isEmpty() ) name = number
                     // save data
                     val contact = Contact(name = name, number = number, address = address, image = uriPath)
                     viewModel.insertContact(contact)
+                    findNavController().navigate(R.id.navigate_to_contactList)
                 }
             }
-            findNavController().navigate(R.id.navigate_to_contactList)
         }
         return view
     }

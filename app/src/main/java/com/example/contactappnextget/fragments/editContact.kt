@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import br.com.sapereaude.maskedEditText.MaskedEditText
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.example.contactappnextget.R
@@ -43,7 +45,7 @@ class EditContact : Fragment(R.layout.fragment_edit_contact) {
     private lateinit var image: ImageView
     private lateinit var setImage: RoundedImageView
     private lateinit var name: TextInputEditText
-    private lateinit var phone: TextInputEditText
+    private lateinit var phone: MaskedEditText
     private lateinit var address: TextInputEditText
     private lateinit var viewModel: ContactViewModel
     private lateinit var action: EditContactDirections.ActionEditContactToDetailing
@@ -68,7 +70,11 @@ class EditContact : Fragment(R.layout.fragment_edit_contact) {
         temp = 0
 
         name.setText(args.name)
-        phone.setText(args.phone)
+        val _phone = args.phone
+        val c = "()-+-"
+        val p = _phone.replace(Regex("[$c]"), "")
+        phone.setText(p.drop(1))
+        Log.e("PSHKA","${p.drop(1)}")
         address.setText(args.address)
         image.load(File(args.image)) {
             crossfade(true)
@@ -116,22 +122,25 @@ class EditContact : Fragment(R.layout.fragment_edit_contact) {
                         }
                         val uri: Uri = saveImage()
                         val uriPath = uri.path.toString()
-
-                        when {
-                            name.text!!.isEmpty() -> name.error = "Please enter the name"
-                            phone.text!!.isEmpty() -> textInputEditText2.error = "Please enter the number"
-                            else -> {
+                        when (phone.text?.length) {
+                            3 -> phone.error = "Please enter the number"
+                            4,5,6,7,8,9,10,11,12,13,14,15 -> phone.error = "Please enter the correct number"
+                            16 -> {
+                                var naming = name.text.toString()
+                                if(name.text!!.isEmpty() ) naming = phone.text.toString()
+                                Log.e("naimg2","${phone.text}")
                                 // save data
                                 val contact = Contact(
-                                    name = name.text.toString(),
+                                    name = naming,
                                     number = phone.text.toString(),
                                     address = address.text.toString(),
                                     image = uriPath,
-                                    id = args.id
+                                    id = args.id,
+                                    favourite = args.favourite
                                 )
                                 viewModel.updateContact(contact)
                                 action = EditContactDirections.actionEditContactToDetailing(
-                                    name.text.toString(),
+                                    naming,
                                     phone.text.toString(),
                                     address.text.toString(),
                                     uriPath,
