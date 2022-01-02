@@ -9,14 +9,11 @@ import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -34,6 +31,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
 import java.util.*
+import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class AddContact : Fragment(R.layout.fragment_add_contact) {
@@ -44,17 +42,13 @@ class AddContact : Fragment(R.layout.fragment_add_contact) {
     private lateinit var image: ImageView
 
     lateinit var tempBitmap: Bitmap
+    var temp by Delegates.notNull<Int>()
 
     private lateinit var name: String
     private lateinit var number: String
     private lateinit var address: String
     private lateinit var viewModel: ContactViewModel
 
-    override fun onStart() {
-        super.onStart()
-        (activity as AppCompatActivity).supportActionBar?.show()
-        (activity as AppCompatActivity).supportActionBar?.title = "Create contact"
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,6 +56,7 @@ class AddContact : Fragment(R.layout.fragment_add_contact) {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_add_contact, container, false)
         viewModel = ViewModelProvider(this)[ContactViewModel::class.java]
+        temp = 0
 
         roundedImageView = view.findViewById(R.id.setImage)
         image = view.findViewById(R.id.roundedImageView)
@@ -85,12 +80,13 @@ class AddContact : Fragment(R.layout.fragment_add_contact) {
             name = textInputEditText.text.toString().trim()
             number = textInputEditText2.text.toString().trim()
             address = textInputEditText3.text.toString().trim()
-
+            if (temp != 1) {
+                tempBitmap = (image.drawable as BitmapDrawable).bitmap
+            }
             val uri: Uri = saveImage()
             val uriPath = uri.path.toString()
-            Log.e("URIPATH",uriPath)
 
-            when{
+            when {
                 name.isEmpty() -> textInputEditText.error = "Please enter the name"
                 number.isEmpty() -> textInputEditText2.error = "Please enter the number"
                 else -> {
@@ -108,11 +104,11 @@ class AddContact : Fragment(R.layout.fragment_add_contact) {
 
         val wrapper = ContextWrapper(requireContext())
 
-        var file = wrapper.getDir("images",Context.MODE_PRIVATE)
+        var file = wrapper.getDir("images", Context.MODE_PRIVATE)
 //        create file to save the image
         file = File(file, "${UUID.randomUUID()}.jpg")
 
-        try{
+        try {
             val stream: OutputStream = FileOutputStream(file)
 //            compress bitmap
             tempBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
@@ -120,16 +116,16 @@ class AddContact : Fragment(R.layout.fragment_add_contact) {
             stream.flush()
             stream.close()
 
-        }
-        catch(e: IOException){
+        } catch (e: IOException) {
             e.printStackTrace()
         }
 
         return Uri.parse(file.absolutePath)
 
     }
-//      need to change in the future
-    private fun gallery(){
+
+    //      need to change in the future
+    private fun gallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         startActivityForResult(intent, GALLERY_REQUEST_CODE)
@@ -148,10 +144,7 @@ class AddContact : Fragment(R.layout.fragment_add_contact) {
             when (requestCode) {
 
                 CAMERA_REQUEST_CODE -> {
-                    Log.e("DATA","${data?.data}")
                     tempBitmap = data?.extras?.get("data") as Bitmap
-
-                    Log.e("TempBitCam","$tempBitmap")
 
                     //we are using coroutine image loader (coil)
                     image.load(tempBitmap) {
@@ -159,28 +152,19 @@ class AddContact : Fragment(R.layout.fragment_add_contact) {
                         crossfade(1000)
                         transformations(CircleCropTransformation())
                     }
+                    temp = 1
                 }
 
                 GALLERY_REQUEST_CODE -> {
+                    val imageUri = data!!.data
+                    tempBitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, imageUri)
 
-                    Log.e("DATA","${data?.data}")
-
-                    image.load(data?.data) {
+                    image.load(data.data) {
                         crossfade(true)
                         crossfade(1000)
                         transformations(CircleCropTransformation())
                     }
-
-                    tempBitmap = (image.drawable as BitmapDrawable).toBitmap()
-
-//                    tempBitmap = (image.drawable as BitmapDrawable).bitmap
-
-//                    val imageUri = data!!.data
-//                    val bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri)
-//
-//                    val bitmap = MediaStore.Images.Media.getBitmap(c.getContentResolver(), Uri.parse(data.dataString))
-//                    tempBitmap = (image.drawable as BitmapDrawable).bitmap
-                    Log.e("TempBitGall","$tempBitmap")
+                    temp = 1
                 }
             }
         }

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contactappnextget.R
 import com.example.contactappnextget.adapter.ContactAdapter
+import com.example.contactappnextget.model.Contact
 import com.example.contactappnextget.viewModel.ContactViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ContactListTab : Fragment() {
     private lateinit var contactViewModel: ContactViewModel
     private lateinit var recyclerView: RecyclerView
+    private lateinit var data: List<Contact>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,10 +32,12 @@ class ContactListTab : Fragment() {
         val adapter = ContactAdapter()
         recyclerView.adapter = adapter
 
+
         contactViewModel = ViewModelProvider(this)[ContactViewModel::class.java]
         contactViewModel.getAllContacts.observe(viewLifecycleOwner) { contacts ->
             if (contacts != null) {
                 adapter.setContacts(contacts)
+                data = contacts
             }
         }
 

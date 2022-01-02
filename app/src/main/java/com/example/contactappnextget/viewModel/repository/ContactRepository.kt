@@ -7,15 +7,15 @@ import javax.inject.Inject
 
 class ContactRepository @Inject constructor(private val contactDao: ContactDao) {
 
-    fun insertContact(contact: Contact){
+    fun insertContact(contact: Contact) {
         contactDao.insert(contact = contact)
     }
 
-    fun getAllContacts() : LiveData<List<Contact>?> = contactDao.getAllContacts()
+    fun getAllContacts(): LiveData<List<Contact>?> = contactDao.getAllContacts()
 
 //    fun findContactByName(query: String): LiveData<List<Contact>> = contactDao.findContactByName(query)
 
-    fun deleteContact(contact: Contact){
+    fun deleteContact(contact: Contact) {
         contactDao.delete(contact = contact)
     }
 //

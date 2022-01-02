@@ -7,16 +7,19 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.contactappnextget.fragments.ContactListTab
 import com.example.contactappnextget.fragments.FavouriteListTab
 
-class ContactListAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle): FragmentStateAdapter(fragmentManager, lifecycle) {
+class ContactListAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
+    FragmentStateAdapter(fragmentManager, lifecycle) {
     override fun getItemCount(): Int {
         return 2
     }
 
     override fun createFragment(position: Int): Fragment {
-        return when(position){
+        return when (position) {
             0 -> ContactListTab()
             1 -> FavouriteListTab()
-            else ->{ Fragment()}
+            else -> {
+                Fragment()
+            }
         }
     }
 

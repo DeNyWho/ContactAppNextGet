@@ -43,6 +43,9 @@ android {
 
 dependencies {
 
+    //permissions lib
+    implementation 'ru.superjob:kotlin-permissions:1.0.3'
+
     //Cascade menu lib
     implementation "me.saket.cascade:cascade:1.3.0"
 

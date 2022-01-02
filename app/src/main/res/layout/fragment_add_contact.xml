@@ -20,19 +20,17 @@
             app:layout_constraintHorizontal_bias="0.498"/>
 
     <com.makeramen.roundedimageview.RoundedImageView
-        android:layout_width="30dp"
-        android:id="@+id/setImage"
-        android:layout_height="30dp"
-        android:layout_marginStart="10dp"
-        android:src="@drawable/baseline_photo_camera_black_48"
-        android:tint="#2B85F0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/roundedImageView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.109" />
-
+            android:layout_width="30dp"
+            android:id="@+id/setImage"
+            android:layout_height="30dp"
+            android:src="@drawable/baseline_photo_camera_black_48"
+            android:tint="#2B85F0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/roundedImageView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.119"/>
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/textInputEditText"
         android:layout_width="match_parent"

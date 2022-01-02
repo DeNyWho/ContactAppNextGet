@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contactappnextget.R
 
-class AddPagerAdapter(var context: FragmentManager):RecyclerView.Adapter<AddPagerAdapter.MyViewHolder>() {
+class AddPagerAdapter(var context: FragmentManager) : RecyclerView.Adapter<AddPagerAdapter.MyViewHolder>() {
     lateinit var list: List<Int>
     fun setContentList(list: List<Int>) {
         this.list = list

@@ -22,12 +22,12 @@ data class Contact(
         return name
     }
 
-    fun getMobile(): String{
+    fun getMobile(): String {
         return number
     }
 
     @JvmName("getAddress1")
-    fun getAddress(): String{
+    fun getAddress(): String {
         return address
     }
 
@@ -37,12 +37,12 @@ data class Contact(
     }
 
     @JvmName("getFavourite1")
-    fun getFavourite(): Int{
+    fun getFavourite(): Int {
         return favourite
     }
 
     @JvmName("getId1")
-    fun getId(): Int{
+    fun getId(): Int {
         return id
     }
 }

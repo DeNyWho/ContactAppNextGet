@@ -27,7 +27,7 @@ class ContactAdapter : RecyclerView.Adapter<ContactAdapter.ContactHolder>() {
     override fun onBindViewHolder(holder: ContactHolder, position: Int) {
         val currentContact: Contact = contacts[position]
         holder.textViewName.text = currentContact.getName()
-        holder.imageViewName.load(File(currentContact.getImage())){
+        holder.imageViewName.load(File(currentContact.getImage())) {
             crossfade(true)
             crossfade(1000)
             transformations(CircleCropTransformation())
@@ -50,7 +50,7 @@ class ContactAdapter : RecyclerView.Adapter<ContactAdapter.ContactHolder>() {
     }
 
     fun setContacts(contacts: List<Contact>) {
-        this.contacts = contacts
+        this.contacts = contacts.sortedBy { it.name.uppercase() }
         notifyDataSetChanged()
     }
 

@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ContactViewModel @Inject constructor(private val repository: ContactRepository): ViewModel() {
+class ContactViewModel @Inject constructor(private val repository: ContactRepository) : ViewModel() {
 
     val getAllContacts = repository.getAllContacts()
 
@@ -17,19 +17,19 @@ class ContactViewModel @Inject constructor(private val repository: ContactReposi
 //        return repository.findContactByName(query)
 //    }
 
-    fun insertContact(contact: Contact){
+    fun insertContact(contact: Contact) {
         viewModelScope.launch {
             repository.insertContact(contact)
         }
     }
 
-    fun updateContact(contact: Contact){
+    fun updateContact(contact: Contact) {
         viewModelScope.launch {
             repository.updateContact(contact)
         }
     }
 
-    fun deleteContact(contact: Contact){
+    fun deleteContact(contact: Contact) {
         viewModelScope.launch {
             repository.deleteContact(contact)
         }

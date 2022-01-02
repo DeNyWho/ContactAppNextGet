@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
-interface ContactDao{
+interface ContactDao {
     @Insert
     fun insert(contact: Contact): Long
 

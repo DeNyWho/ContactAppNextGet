@@ -6,8 +6,9 @@
                                                      tools:context=".fragments.ContactListTab">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/ContactList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/list_item_contacts"/>
+            android:id="@+id/ContactList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/list_item_contacts"/>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

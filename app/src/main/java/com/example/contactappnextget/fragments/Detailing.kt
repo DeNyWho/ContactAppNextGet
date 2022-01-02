@@ -1,9 +1,14 @@
 package com.example.contactappnextget.fragments
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.RippleDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -12,8 +17,9 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.MenuCompat
 import androidx.fragment.app.Fragment
@@ -26,9 +32,9 @@ import com.example.contactappnextget.R
 import com.example.contactappnextget.model.Contact
 import com.example.contactappnextget.util.RoundedRectDrawable
 import com.example.contactappnextget.viewModel.ContactViewModel
+import com.kotlinpermissions.KotlinPermissions
 import dagger.hilt.android.AndroidEntryPoint
 import me.saket.cascade.CascadePopupMenu
-import me.saket.cascade.allChildren
 import java.io.File
 import kotlin.properties.Delegates
 
@@ -42,32 +48,33 @@ class Detailing : Fragment() {
     private lateinit var phone: TextView
     private lateinit var address: TextView
 
-    override fun onStart() {
-        super.onStart()
-        (activity as AppCompatActivity).supportActionBar?.title = "Contact Info"
-        setHasOptionsMenu(true)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_detailing, container, false)
-        name = view.findViewById<TextView>(R.id.name)
-        phone = view.findViewById<TextView>(R.id.phone)
-        address = view.findViewById<TextView>(R.id.address)
+        name = view.findViewById(R.id.name)
+        phone = view.findViewById(R.id.phone)
+        address = view.findViewById(R.id.address)
         val edit = view.findViewById<FrameLayout>(R.id.edit)
         val image = view.findViewById<ImageView>(R.id.image)
         val call = view.findViewById<FrameLayout>(R.id.call)
         val rate = view.findViewById<ImageView>(R.id.rate)
         val menuBtn = view.findViewById<AppCompatButton>(R.id.menuBtn)
         viewModel = ViewModelProvider(this)[ContactViewModel::class.java]
+        val back = view.findViewById<AppCompatButton>(R.id.back)
+        val sms = view.findViewById<FrameLayout>(R.id.sms)
+
+        back.setOnClickListener {
+            findNavController().navigate(R.id.action_detailing_to_contactList)
+        }
 
         menuBtn.setOnClickListener {
             showCascadeMenu(anchor = menuBtn)
         }
 
-        when(args.favourite){
+        when (args.favourite) {
             0 -> rate.setImageResource(R.drawable.ic_outline_star_outline_24)
             1 -> rate.setImageResource(R.drawable.ic_outline_star_24)
         }
@@ -87,8 +94,7 @@ class Detailing : Fragment() {
                 favouriteId = 0
                 rate.setImageResource(R.drawable.ic_outline_star_outline_24)
                 viewModel.updateContact(contact)
-            }
-            else {
+            } else {
                 val contact = Contact(
                     name = name.text.toString(),
                     number = phone.text.toString(),
@@ -104,17 +110,47 @@ class Detailing : Fragment() {
 
         }
 
-        call.setOnClickListener {}
+        call.setOnClickListener {
+            KotlinPermissions.with(requireActivity()) // where this is an FragmentActivity instance
+                .permissions(Manifest.permission.CALL_PHONE)
+                .onAccepted { permissions ->
+                    val _phone = args.phone
+                    val c = "()-"
+                    val p = _phone.replace(Regex("[$c]"), "")
+                    val number = "tel:$p"
+                    val intent = Intent()
+                    intent.action = Intent.ACTION_CALL
+                    intent.data = Uri.parse(number)
+                    startActivity(intent)
+                }
+                .onDenied {
+                }
+                .onForeverDenied {
+                }
+                .ask()
+            }
+
+
+
+
+        sms.setOnClickListener {}
 
         name.text = args.name
         phone.text = args.phone
         address.text = args.address
-        image.load(File(args.image)){
+        image.load(File(args.image)) {
             transformations(CircleCropTransformation())
         }
 
         edit.setOnClickListener {
-            val action = DetailingDirections.actionDetailingToEditContact(args.name, args.phone, args.address, args.image, args.id, favouriteId)
+            val action = DetailingDirections.actionDetailingToEditContact(
+                args.name,
+                args.phone,
+                args.address,
+                args.image,
+                args.id,
+                favouriteId
+            )
             findNavController().navigate(action)
         }
 
@@ -125,7 +161,7 @@ class Detailing : Fragment() {
         val popupMenu = CascadePopupMenu(requireContext(), anchor, styler = cascadeMenuStyler())
         popupMenu.menu.apply {
             MenuCompat.setGroupDividerEnabled(this, true)
-            addSubMenu("Share").also {
+            add("Share").also {
                 it.setIcon(R.drawable.ic_outline_share_24)
             }
             addSubMenu("Remove").also {
@@ -152,6 +188,8 @@ class Detailing : Fragment() {
             popupMenu.show()
         }
     }
+
+    @SuppressLint("ResourceAsColor")
     private fun cascadeMenuStyler(): CascadePopupMenu.Styler {
         val rippleDrawable = {
             RippleDrawable(ColorStateList.valueOf(Color.parseColor("#B1DDC6")), null, ColorDrawable(Color.WHITE))
@@ -168,10 +206,12 @@ class Detailing : Fragment() {
             menuItem = {
                 it.titleView.typeface = ResourcesCompat.getFont(requireContext(), R.font.font)
                 it.setBackground(rippleDrawable())
+                it.titleView.setTextColor(Color.WHITE)
                 it.setGroupDividerColor(Color.parseColor("#232B3B"))
             }
         )
     }
+
     private val Float.dip: Float
         get() {
             val metrics = resources.displayMetrics

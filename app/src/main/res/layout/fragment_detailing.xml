@@ -10,6 +10,15 @@
     <androidx.appcompat.widget.AppCompatButton
             android:layout_width="35dp"
             android:layout_height="35dp"
+            android:id="@+id/back"
+            android:background="@drawable/ic_outline_arrow_back_24"
+            android:backgroundTint="@color/white"
+            android:alpha="0.9" app:layout_constraintEnd_toStartOf="@+id/image"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp" app:layout_constraintHorizontal_bias="0.166"/>
+    <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginTop="16sp"
             android:id="@+id/menuBtn"
             android:background="@drawable/ic_more_vert_24"

@@ -23,11 +23,6 @@ class ContactList : Fragment() {
     private lateinit var viewModel: ContactViewModel
 
 
-    override fun onStart() {
-        super.onStart()
-        (activity as AppCompatActivity).supportActionBar?.show()
-        (activity as AppCompatActivity).supportActionBar?.title = "Contacts"
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,18 +32,18 @@ class ContactList : Fragment() {
             findNavController().navigate(R.id.navigate_to_addContact)
         }
 
-       viewModel = ViewModelProvider(this)[ContactViewModel::class.java]
+        viewModel = ViewModelProvider(this)[ContactViewModel::class.java]
 
 //      TabLayout + viewPager
 
-        val tabLayout=view.findViewById<TabLayout>(R.id.tabLayout)
-        val viewPager=view.findViewById<ViewPager2>(R.id.viewPager)
+        val tabLayout = view.findViewById<TabLayout>(R.id.tabLayout)
+        val viewPager = view.findViewById<ViewPager2>(R.id.viewPager)
 
         val adapter = ContactListAdapter((activity as AppCompatActivity).supportFragmentManager, lifecycle)
         viewPager.adapter = adapter
 
-        TabLayoutMediator(tabLayout, viewPager){tab, position ->
-            when(position){
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            when (position) {
                 0 -> tab.text = "MY CONTACTS"
                 1 -> tab.text = "FAVOURITE"
             }

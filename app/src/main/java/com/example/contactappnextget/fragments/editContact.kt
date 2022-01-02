@@ -9,14 +9,11 @@ import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -36,6 +33,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
 import java.util.*
+import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class EditContact : Fragment(R.layout.fragment_edit_contact) {
@@ -49,13 +47,10 @@ class EditContact : Fragment(R.layout.fragment_edit_contact) {
     private lateinit var address: TextInputEditText
     private lateinit var viewModel: ContactViewModel
     private lateinit var action: EditContactDirections.ActionEditContactToDetailing
+    var temp by Delegates.notNull<Int>()
 
     lateinit var tempBitmap: Bitmap
 
-    override fun onStart() {
-        super.onStart()
-        (activity as AppCompatActivity).supportActionBar?.title = "Edit contact"
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,10 +65,12 @@ class EditContact : Fragment(R.layout.fragment_edit_contact) {
         setImage = view.findViewById(R.id.setImage)
         val next = view.findViewById<MaterialButton>(R.id.next)
 
+        temp = 0
+
         name.setText(args.name)
         phone.setText(args.phone)
         address.setText(args.address)
-        image.load(File(args.image)){
+        image.load(File(args.image)) {
             crossfade(true)
             crossfade(1000)
             transformations(CircleCropTransformation())
@@ -103,13 +100,22 @@ class EditContact : Fragment(R.layout.fragment_edit_contact) {
 
                 when (which) {
                     0 -> {
-                        action = EditContactDirections.actionEditContactToDetailing(args.name, args.phone, args.address, args.image, args.id, args.favourite)
+                        action = EditContactDirections.actionEditContactToDetailing(
+                            args.name,
+                            args.phone,
+                            args.address,
+                            args.image,
+                            args.id,
+                            args.favourite
+                        )
                         findNavController().navigate(action)
                     }
                     1 -> {
+                        if (temp != 1) {
+                            tempBitmap = (image.drawable as BitmapDrawable).bitmap
+                        }
                         val uri: Uri = saveImage()
                         val uriPath = uri.path.toString()
-                        Log.e("URIPATH",uriPath)
 
                         when {
                             name.text!!.isEmpty() -> name.error = "Please enter the name"
@@ -124,7 +130,14 @@ class EditContact : Fragment(R.layout.fragment_edit_contact) {
                                     id = args.id
                                 )
                                 viewModel.updateContact(contact)
-                                action = EditContactDirections.actionEditContactToDetailing(name.text.toString(), phone.text.toString(), address.text.toString(), uriPath, args.id, args.favourite)
+                                action = EditContactDirections.actionEditContactToDetailing(
+                                    name.text.toString(),
+                                    phone.text.toString(),
+                                    address.text.toString(),
+                                    uriPath,
+                                    args.id,
+                                    args.favourite
+                                )
                                 findNavController().navigate(action)
                             }
                         }
@@ -139,32 +152,15 @@ class EditContact : Fragment(R.layout.fragment_edit_contact) {
         return view
     }
 
-//    private fun saveData() {
-//
-//        val uri: Uri = saveImage()
-//        val uriPath = uri.path.toString()
-//        Log.e("URIPATH",uriPath)
-//
-//        when {
-//            name.text!!.isEmpty() -> name.error = "Please enter the name"
-//            phone.text!!.isEmpty() -> textInputEditText2.error = "Please enter the number"
-//            else -> {
-//                // save data
-//                val contact = Contact(name = name.text.toString(), number = phone.text.toString(), address = address.text.toString(), image = uriPath)
-//                viewModel.saveContact(contact)
-//            }
-//        }
-//    }
-
     private fun saveImage(): Uri {
 
         val wrapper = ContextWrapper(requireContext())
 
-        var file = wrapper.getDir("images",Context.MODE_PRIVATE)
+        var file = wrapper.getDir("images", Context.MODE_PRIVATE)
 //        create file to save the image
         file = File(file, "${UUID.randomUUID()}.jpg")
 
-        try{
+        try {
             val stream: OutputStream = FileOutputStream(file)
 //            compress bitmap
             tempBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
@@ -172,16 +168,16 @@ class EditContact : Fragment(R.layout.fragment_edit_contact) {
             stream.flush()
             stream.close()
 
-        }
-        catch(e: IOException){
+        } catch (e: IOException) {
             e.printStackTrace()
         }
 
         return Uri.parse(file.absolutePath)
 
     }
+
     //      need to change in the future
-    private fun gallery(){
+    private fun gallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         startActivityForResult(intent, GALLERY_REQUEST_CODE)
@@ -200,10 +196,8 @@ class EditContact : Fragment(R.layout.fragment_edit_contact) {
             when (requestCode) {
 
                 CAMERA_REQUEST_CODE -> {
-                    Log.e("DATA","${data?.data}")
-                    tempBitmap = data?.extras?.get("data") as Bitmap
 
-                    Log.e("TempBitCam","$tempBitmap")
+                    tempBitmap = data?.extras?.get("data") as Bitmap
 
                     //we are using coroutine image loader (coil)
                     image.load(tempBitmap) {
@@ -211,28 +205,20 @@ class EditContact : Fragment(R.layout.fragment_edit_contact) {
                         crossfade(1000)
                         transformations(CircleCropTransformation())
                     }
+                    temp = 1
                 }
 
                 GALLERY_REQUEST_CODE -> {
 
-                    Log.e("DATA","${data?.data}")
+                    val imageUri = data!!.data
+                    tempBitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, imageUri)
 
-                    image.load(data?.data) {
+                    image.load(data.data) {
                         crossfade(true)
                         crossfade(1000)
                         transformations(CircleCropTransformation())
                     }
-
-                    tempBitmap = (image.drawable as BitmapDrawable).toBitmap()
-
-//                    tempBitmap = (image.drawable as BitmapDrawable).bitmap
-
-//                    val imageUri = data!!.data
-//                    val bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri)
-//
-//                    val bitmap = MediaStore.Images.Media.getBitmap(c.getContentResolver(), Uri.parse(data.dataString))
-//                    tempBitmap = (image.drawable as BitmapDrawable).bitmap
-                    Log.e("TempBitGall","$tempBitmap")
+                    temp = 1
                 }
             }
         }
