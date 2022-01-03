@@ -110,7 +110,7 @@ class Detailing : Fragment() {
         call.setOnClickListener {
             KotlinPermissions.with(requireActivity()) // where this is an FragmentActivity instance
                 .permissions(Manifest.permission.CALL_PHONE)
-                .onAccepted { permissions ->
+                .onAccepted {
                     val _phone = args.phone
                     val c = "()-"
                     val p = _phone.replace(Regex("[$c]"), "")

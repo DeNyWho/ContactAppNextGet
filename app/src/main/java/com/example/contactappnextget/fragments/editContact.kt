@@ -29,7 +29,6 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.makeramen.roundedimageview.RoundedImageView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_add_contact.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
