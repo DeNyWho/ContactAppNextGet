@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="#161E27"
+             tools:context=".fragments.PinCode">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome Everyone"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/font" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="80dp" app:layout_constraintHorizontal_bias="0.497"/>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal"
+            android:layout_height="65dp"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0" android:id="@+id/linearLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" android:layout_marginTop="60dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:text="7"
+                android:id="@+id/seven"
+                android:textSize="20sp"
+                android:fontFamily="@font/font"
+                android:background="@drawable/background_puin"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_marginStart="45sp"
+                android:text="8"
+                android:id="@+id/eight"
+                android:textSize="20sp"
+                android:fontFamily="@font/font"
+                android:background="@drawable/background_puin"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:text="9"
+                android:id="@+id/nine"
+                android:layout_marginStart="45sp"
+                android:textSize="20sp"
+                android:fontFamily="@font/font"
+                android:background="@drawable/background_puin"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal"
+            android:layout_height="65dp"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0" android:id="@+id/linearLayout3"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" android:layout_marginTop="60dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:text="4"
+                android:id="@+id/four"
+                android:textSize="20sp"
+                android:fontFamily="@font/font"
+                android:background="@drawable/background_puin"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_marginStart="45sp"
+                android:text="5"
+                android:id="@+id/five"
+                android:textSize="20sp"
+                android:fontFamily="@font/font"
+                android:background="@drawable/background_puin"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:text="6"
+                android:id="@+id/six"
+                android:layout_marginStart="45sp"
+                android:textSize="20sp"
+                android:fontFamily="@font/font"
+                android:background="@drawable/background_puin"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal"
+            android:layout_height="65dp"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0" android:id="@+id/linearLayout"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="244dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:id="@+id/one"
+                android:text="1"
+                android:textSize="20sp"
+                android:fontFamily="@font/font"
+                android:background="@drawable/background_puin"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:id="@+id/two"
+                android:layout_marginStart="45sp"
+                android:text="2"
+                android:textSize="20sp"
+                android:fontFamily="@font/font"
+                android:background="@drawable/background_puin"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:id="@+id/three"
+                android:text="3"
+                android:layout_marginStart="45sp"
+                android:textSize="20sp"
+                android:fontFamily="@font/font"
+                android:background="@drawable/background_puin"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

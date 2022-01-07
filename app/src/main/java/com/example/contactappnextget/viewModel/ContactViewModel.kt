@@ -13,10 +13,6 @@ class ContactViewModel @Inject constructor(private val repository: ContactReposi
 
     val getAllContacts = repository.getAllContacts()
 
-//    fun findContactByName(query: String): LiveData<List<Contact>> {
-//        return repository.findContactByName(query)
-//    }
-
     fun insertContact(contact: Contact) {
         viewModelScope.launch {
             repository.insertContact(contact)

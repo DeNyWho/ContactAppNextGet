@@ -13,17 +13,12 @@ class ContactRepository @Inject constructor(private val contactDao: ContactDao) 
 
     fun getAllContacts(): LiveData<List<Contact>?> = contactDao.getAllContacts()
 
-//    fun findContactByName(query: String): LiveData<List<Contact>> = contactDao.findContactByName(query)
-
     fun deleteContact(contact: Contact) {
         contactDao.delete(contact = contact)
     }
-//
-//    fun findContact(contactId: Long) {
-//        contactDao.findContactById(contactId)
-//    }
 
     fun updateContact(contact: Contact) {
         contactDao.updateContact(contact)
     }
+
 }
